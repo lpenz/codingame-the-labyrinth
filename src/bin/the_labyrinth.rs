@@ -4,9 +4,10 @@
 
 use std::error::Error;
 
-extern crate thelabyrinth;
+extern crate the_labyrinth;
+use the_labyrinth::entrypoint;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    thelabyrinth::core::main()?;
+    entrypoint::main()?;
     Ok(())
 }

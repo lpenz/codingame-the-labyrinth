@@ -21,6 +21,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "anyhow"
+version = "1.0.43"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "28ae2b3dec75a406790005a200b1bd89785afc02517a00ca99ecfe093ee9e6cf"
+
+[[package]]
 name = "autocfg"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -267,9 +273,8 @@ dependencies = [
 
 [[package]]
 name = "rustsourcebundler"
-version = "0.6.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "587417f90a11d392db6edb455bbf51b95cab4440f6087eed49b4fabcfa9566ce"
+version = "0.7.0"
+source = "git+https://github.com/lpenz/rust-sourcebundler?branch=devel#8c0607df21aeaa646bf0937011f838ae4e0a2f8a"
 dependencies = [
  "regex 0.2.11",
 ]
@@ -399,9 +404,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "thelabyrinth"
+name = "the-labyrinth"
 version = "0.0.1"
 dependencies = [
+ "anyhow",
  "chrono",
  "itertools",
  "libc",
