@@ -6,7 +6,6 @@ use std::convert;
 use std::fmt;
 
 use crate::error::*;
-use crate::sqrid;
 
 pub const MAX_WIDTH: u16 = 200;
 pub const MAX_HEIGHT: u16 = 100;
@@ -14,9 +13,10 @@ pub const MAX_HEIGHT: u16 = 100;
 // pub const MAX_HEIGHT: u16 = 15;
 pub const GRIDBOOL_WORDS: usize = (MAX_WIDTH as usize * MAX_HEIGHT as usize - 1) / 32 + 1;
 
-pub type Qa = sqrid::Qa<MAX_WIDTH, MAX_HEIGHT>;
-pub type Qr = sqrid::Qr;
-pub type Traverser = crate::traverser_create!(Qa, false);
+pub type Sqrid = crate::sqrid_create!(MAX_WIDTH, MAX_HEIGHT, false);
+pub type Qa = crate::qa_create!(Sqrid);
+pub type Qr = crate::Qr;
+pub type Maze = crate::grid_create!(Sqrid, Cell);
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Cell {
@@ -75,19 +75,19 @@ pub struct Params {
 #[derive(Debug, Default)]
 pub struct Node {
     pub kirk: Qa,
-    pub maze:
-        sqrid::Grid<Cell, MAX_WIDTH, MAX_HEIGHT, { MAX_WIDTH as usize * MAX_HEIGHT as usize }>,
+    pub maze: Maze,
 }
 
 impl Node {
-    pub fn bfs(&self, goal: Cell) -> Option<(Qa, Vec<Qr>, crate::grid_create!(Qr, Qa))> {
-        Traverser::bfs(
-            &[self.kirk],
+    pub fn bfs(&self, goal: Cell) -> Option<(Qa, Vec<Qr>)> {
+        Sqrid::bfs_path(
             |qa0, qr| {
                 let qa: Option<Qa> = qa0 + qr;
                 qa.filter(|qa| self.maze[qa] != Cell::Wall)
             },
+            &self.kirk,
             |qa| self.maze[qa] == goal,
         )
+        .ok()
     }
 }
