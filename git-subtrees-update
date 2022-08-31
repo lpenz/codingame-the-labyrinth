@@ -5,7 +5,7 @@ function git-subtree {
     REPO="$2"
     BRANCH="$3"
     if ! git remote show "$REPO" &> /dev/null; then
-        git remote add -f "$REPO" git@github.com:"$REPO".git
+        git remote add --no-tags -f "$REPO" git@github.com:"$REPO".git
     fi
     git fetch "$REPO"
     if ! [ -d "$PREFIX" ]; then
@@ -13,6 +13,7 @@ function git-subtree {
     else
         git subtree pull --prefix "$PREFIX" "$REPO" "$BRANCH" --squash
     fi
+    git remote rm "$REPO"
 }
 
 set -e -x -o pipefail
