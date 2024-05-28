@@ -14,23 +14,18 @@ pub const MAX_HEIGHT: u16 = 100;
 pub const GRIDBOOL_WORDS: usize = (MAX_WIDTH as usize * MAX_HEIGHT as usize - 1) / 32 + 1;
 
 pub type Sqrid = crate::sqrid_create!(MAX_WIDTH, MAX_HEIGHT, false);
-pub type Qa = crate::qa_create!(Sqrid);
-pub type Qr = crate::Qr;
+pub type Pos = crate::pos_create!(Sqrid);
+pub type Dir = crate::Dir;
 pub type Maze = crate::grid_create!(Sqrid, Cell);
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Default)]
 pub enum Cell {
+    #[default]
     Unknown,
     Wall,
     Space,
     Start,
     Control,
-}
-
-impl Default for Cell {
-    fn default() -> Cell {
-        Cell::Unknown
-    }
 }
 
 impl convert::TryFrom<char> for Cell {
@@ -74,19 +69,19 @@ pub struct Params {
 
 #[derive(Debug, Default)]
 pub struct Node {
-    pub kirk: Qa,
+    pub kirk: Pos,
     pub maze: Maze,
 }
 
 impl Node {
-    pub fn bfs(&self, goal: Cell) -> Option<(Qa, Vec<Qr>)> {
+    pub fn bfs(&self, goal: Cell) -> Option<(Pos, Vec<Dir>)> {
         Sqrid::bfs_path(
-            |qa0, qr| {
-                let qa: Option<Qa> = qa0 + qr;
-                qa.filter(|qa| self.maze[qa] != Cell::Wall)
+            |pos0, dir| {
+                let pos: Option<Pos> = (pos0 + dir).ok();
+                pos.filter(|pos| self.maze[pos] != Cell::Wall)
             },
             &self.kirk,
-            |qa| self.maze[qa] == goal,
+            |pos| self.maze[pos] == goal,
         )
         .ok()
     }
