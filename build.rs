@@ -8,10 +8,9 @@ extern crate rustsourcebundler;
 use rustsourcebundler::Bundler;
 
 fn main() {
-    let mut bundler: Bundler = Bundler::new(
+    let bundler: Bundler = Bundler::new(
         Path::new("src/bin/the_labyrinth.rs"),
         Path::new("src/bin/singlefile.rs"),
     );
-    bundler.crate_name("the_labyrinth");
     bundler.run();
 }

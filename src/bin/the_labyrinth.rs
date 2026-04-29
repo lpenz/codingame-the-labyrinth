@@ -2,12 +2,10 @@
 // This file is subject to the terms and conditions defined in
 // file 'LICENSE', which is part of this source code package.
 
-use std::error::Error;
-
 extern crate the_labyrinth;
-use the_labyrinth::entrypoint;
+pub use the_labyrinth::*;
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     entrypoint::main()?;
     Ok(())
 }
