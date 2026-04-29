@@ -79,7 +79,6 @@
 use std::collections;
 use std::mem;
 
-use super::camefrom_into_path;
 use super::Dir;
 use super::Error;
 use super::Grid;
@@ -88,6 +87,7 @@ use super::MapPos;
 use super::Pos;
 use super::SetPos;
 use super::Sqrid;
+use super::camefrom_into_path;
 
 /* BfIterator *****************************************************************/
 
@@ -108,14 +108,14 @@ pub struct BfIterator<
 }
 
 impl<
-        GoFn,
-        MySetPos,
-        const W: u16,
-        const H: u16,
-        const D: bool,
-        const WORDS: usize,
-        const SIZE: usize,
-    > BfIterator<GoFn, MySetPos, W, H, D, WORDS, SIZE>
+    GoFn,
+    MySetPos,
+    const W: u16,
+    const H: u16,
+    const D: bool,
+    const WORDS: usize,
+    const SIZE: usize,
+> BfIterator<GoFn, MySetPos, W, H, D, WORDS, SIZE>
 where
     MySetPos: SetPos<W, H, WORDS, SIZE> + Default,
 {
@@ -136,14 +136,14 @@ where
 }
 
 impl<
-        GoFn,
-        MySetPos,
-        const W: u16,
-        const H: u16,
-        const D: bool,
-        const WORDS: usize,
-        const SIZE: usize,
-    > Iterator for BfIterator<GoFn, MySetPos, W, H, D, WORDS, SIZE>
+    GoFn,
+    MySetPos,
+    const W: u16,
+    const H: u16,
+    const D: bool,
+    const WORDS: usize,
+    const SIZE: usize,
+> Iterator for BfIterator<GoFn, MySetPos, W, H, D, WORDS, SIZE>
 where
     GoFn: Fn(Pos<W, H>, Dir) -> Option<Pos<W, H>>,
     MySetPos: SetPos<W, H, WORDS, SIZE>,

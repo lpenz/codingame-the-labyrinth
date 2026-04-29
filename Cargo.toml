@@ -3,7 +3,7 @@ name = "the-labyrinth"
 version = "0.0.1"
 authors = ["Leandro Lisboa Penz <lpenz@lpenz.org>"]
 build = "build.rs"
-edition = "2018"
+edition = "2024"
 
 [lib]
 doctest = false

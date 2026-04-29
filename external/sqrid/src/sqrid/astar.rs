@@ -47,13 +47,13 @@ use std::cmp::Reverse;
 use std::collections;
 use std::collections::BinaryHeap;
 
-use super::camefrom_into_path;
 use super::Dir;
 use super::Error;
 use super::Grid;
 use super::MapPos;
 use super::Pos;
 use super::Sqrid;
+use super::camefrom_into_path;
 
 /* AstarIterator **************************************************************/
 
@@ -75,14 +75,14 @@ pub struct AstarIterator<
 }
 
 impl<
-        F,
-        MapPosUsize,
-        const W: u16,
-        const H: u16,
-        const D: bool,
-        const WORDS: usize,
-        const SIZE: usize,
-    > AstarIterator<F, MapPosUsize, W, H, D, WORDS, SIZE>
+    F,
+    MapPosUsize,
+    const W: u16,
+    const H: u16,
+    const D: bool,
+    const WORDS: usize,
+    const SIZE: usize,
+> AstarIterator<F, MapPosUsize, W, H, D, WORDS, SIZE>
 {
     /// Create a new A* iterator
     ///
@@ -109,14 +109,14 @@ impl<
 }
 
 impl<
-        F,
-        MapPosUsize,
-        const W: u16,
-        const H: u16,
-        const D: bool,
-        const WORDS: usize,
-        const SIZE: usize,
-    > Iterator for AstarIterator<F, MapPosUsize, W, H, D, WORDS, SIZE>
+    F,
+    MapPosUsize,
+    const W: u16,
+    const H: u16,
+    const D: bool,
+    const WORDS: usize,
+    const SIZE: usize,
+> Iterator for AstarIterator<F, MapPosUsize, W, H, D, WORDS, SIZE>
 where
     F: Fn(Pos<W, H>, Dir) -> Option<Pos<W, H>>,
     MapPosUsize: MapPos<usize, W, H, WORDS, SIZE>,
@@ -127,12 +127,12 @@ where
             let pos = mov.0;
             for dir in Dir::iter::<D>() {
                 let newcost = self.cost.get(&pos) + 1;
-                if let Some(next_pos) = (self.go)(pos, dir) {
-                    if newcost < *self.cost.get(&next_pos) {
-                        self.cost.set(next_pos, newcost);
-                        let priority = Reverse(newcost + Pos::manhattan(&next_pos, &self.dest));
-                        self.frontier.push((priority, (next_pos, -dir)));
-                    }
+                if let Some(next_pos) = (self.go)(pos, dir)
+                    && newcost < *self.cost.get(&next_pos)
+                {
+                    self.cost.set(next_pos, newcost);
+                    let priority = Reverse(newcost + Pos::manhattan(&next_pos, &self.dest));
+                    self.frontier.push((priority, (next_pos, -dir)));
                 }
             }
             Some(mov)

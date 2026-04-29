@@ -173,13 +173,13 @@ impl<const W: u16, const H: u16> Pos<W, H> {
     /// Returns the x coordinate
     #[inline]
     pub const fn x(&self) -> u16 {
-        self.0 .0
+        self.0.0
     }
 
     /// Returns the y coordinate
     #[inline]
     pub const fn y(&self) -> u16 {
-        self.0 .1
+        self.0.1
     }
 
     /// Return the corresponding `(u16, u16)` tuple.

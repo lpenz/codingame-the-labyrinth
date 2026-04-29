@@ -54,13 +54,13 @@ use std::cmp::Reverse;
 use std::collections;
 use std::collections::BinaryHeap;
 
-use super::camefrom_into_path;
 use super::Dir;
 use super::Error;
 use super::Grid;
 use super::MapPos;
 use super::Pos;
 use super::Sqrid;
+use super::camefrom_into_path;
 
 /// The type for the cost of a step inside a path
 pub type Cost = usize;
@@ -84,14 +84,14 @@ pub struct UcsIterator<
 }
 
 impl<
-        F,
-        MapPosUsize,
-        const W: u16,
-        const H: u16,
-        const D: bool,
-        const WORDS: usize,
-        const SIZE: usize,
-    > UcsIterator<F, MapPosUsize, W, H, D, WORDS, SIZE>
+    F,
+    MapPosUsize,
+    const W: u16,
+    const H: u16,
+    const D: bool,
+    const WORDS: usize,
+    const SIZE: usize,
+> UcsIterator<F, MapPosUsize, W, H, D, WORDS, SIZE>
 {
     /// Create a new UCS iterator
     ///
@@ -113,14 +113,14 @@ impl<
 }
 
 impl<
-        F,
-        MapPosUsize,
-        const W: u16,
-        const H: u16,
-        const D: bool,
-        const WORDS: usize,
-        const SIZE: usize,
-    > Iterator for UcsIterator<F, MapPosUsize, W, H, D, WORDS, SIZE>
+    F,
+    MapPosUsize,
+    const W: u16,
+    const H: u16,
+    const D: bool,
+    const WORDS: usize,
+    const SIZE: usize,
+> Iterator for UcsIterator<F, MapPosUsize, W, H, D, WORDS, SIZE>
 where
     F: Fn(Pos<W, H>, Dir) -> Option<(Pos<W, H>, Cost)>,
     MapPosUsize: MapPos<usize, W, H, WORDS, SIZE>,
